@@ -1,0 +1,12 @@
+{
+  "name": "dndocs-jukebox",
+  "private": true,
+  "type": "module",
+  "description": "Music library for the DnDocs jukebox (GitHub Pages).",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/build.mjs --catalog-only --out .cache/check",
+    "serve": "node scripts/serve.mjs"
+  },
+  "engines": { "node": ">=18" }
+}

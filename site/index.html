@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DnDocs Jukebox</title>
+<meta name="description" content="Fantasy background music for tabletop games: pick an environment and it plays fitting tracks with smooth crossfades.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎵</text></svg>">
+<style>
+  :root {
+    color-scheme: dark;
+    --bg:#1c1917; --panel:#292524; --panel2:#231f1d; --line:#44403c; --text:#e7e5e4; --muted:#a8a29e; --dim:#78716c;
+    --accent:#f59e0b; --accent-soft:#78350f55; --gold:#fde68a;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin:0; background:var(--bg); color:var(--text); font:15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  .wrap { max-width:1040px; margin:auto; padding:0 16px; }
+  header { padding:28px 0 6px; }
+  h1 { font-family: Georgia, "Times New Roman", serif; font-size:30px; margin:0 0 2px; color:var(--gold); }
+  header p { margin:0; color:var(--muted); }
+  .stats { font-size:13px; color:var(--dim); margin-top:4px; }
+  h2 { font-family: Georgia, serif; color:var(--gold); margin:32px 0 10px; font-size:21px; }
+  button { font:inherit; color:inherit; }
+  a { color:#fbbf24; }
+
+  /* Player */
+  .player { position:relative; z-index:5; margin:18px 0 0; padding:14px 16px; background:color-mix(in oklab, var(--panel) 94%, transparent);
+    backdrop-filter: blur(8px); border:1px solid var(--line); border-radius:14px; box-shadow:0 10px 30px -12px #000a; }
+  .np { display:flex; gap:14px; align-items:center; min-width:0; }
+  .np .emoji { font-size:38px; line-height:1; flex:none; width:46px; text-align:center; }
+  .np .info { min-width:0; flex:1; }
+  .np .env { font-family:Georgia, serif; color:#fcd34d; font-weight:600; font-size:14px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .np .title { font-weight:650; font-size:18px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .np .credit { font-size:12px; color:var(--dim); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .bar { display:flex; align-items:center; gap:8px; font-size:11px; color:var(--dim); font-variant-numeric:tabular-nums; margin-top:10px; }
+  .track { flex:1; height:4px; background:#44403c; border-radius:9px; overflow:hidden; }
+  .fill { height:100%; width:0; background:var(--accent); border-radius:9px; transition:width .5s linear; }
+  .controls { display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin-top:12px; }
+  .btn { display:inline-flex; align-items:center; gap:6px; border:1px solid var(--line); background:var(--panel2); border-radius:8px; padding:7px 12px;
+    cursor:pointer; font-size:14px; font-weight:600; min-height:38px; }
+  .btn:hover:not(:disabled) { border-color:#78716c; }
+  .btn:disabled { opacity:.45; cursor:default; }
+  .btn.primary { background:var(--accent); color:#1c1917; border-color:var(--accent); }
+  .seg { display:inline-flex; border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+  .seg button { border:0; background:transparent; padding:6px 10px; cursor:pointer; font-size:13px; color:var(--muted); }
+  .seg button[aria-pressed="true"] { background:#44403c; color:var(--text); }
+  .vol { display:flex; align-items:center; gap:6px; margin-left:auto; min-width:170px; flex:1; max-width:260px; }
+  .vol input { flex:1; accent-color:var(--accent); min-width:0; }
+  .icon { width:38px; height:38px; justify-content:center; padding:0; }
+  .eq { display:inline-flex; gap:2px; align-items:flex-end; height:12px; margin-left:6px; vertical-align:-1px; }
+  .eq i { width:3px; background:var(--accent); border-radius:1px; animation:eq .9s ease-in-out infinite alternate; }
+  .eq i:nth-child(2) { animation-delay:.18s } .eq i:nth-child(3) { animation-delay:.36s }
+  @keyframes eq { from { height:25% } to { height:100% } }
+  .paused .eq i { animation-play-state:paused; }
+  .hint { font-size:12px; color:var(--dim); margin-top:8px; }
+
+  /* Environments */
+  .grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(190px, 1fr)); gap:8px; }
+  .card { display:flex; gap:10px; align-items:flex-start; text-align:left; border:1px solid var(--line); background:var(--panel); border-radius:10px;
+    padding:10px 12px; cursor:pointer; min-width:0; }
+  .card:hover { border-color:#78716c; }
+  .card.active { border-color:var(--accent); background:var(--accent-soft); }
+  .card.selected:not(.active) { border-color:#a8a29e; }
+  .card .e { font-size:26px; line-height:1.1; }
+  .card b { display:block; font-family:Georgia, serif; font-size:15px; }
+  .card .meta { display:block; font-size:12px; color:var(--dim); }
+  .card .name { min-width:0; }
+
+  .detail { display:grid; grid-template-columns: 1fr 280px; gap:16px; align-items:start; }
+  @media (max-width: 760px) { .detail { grid-template-columns: 1fr; } .vol { max-width:none; } .grid { grid-template-columns:repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 761px) { .player { position:sticky; top:0; } }
+  .desc { color:var(--muted); margin:0 0 10px; }
+  ol.list { list-style:none; padding:0; margin:0; border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  ol.list li { display:flex; align-items:center; gap:10px; padding:7px 10px; border-top:1px solid var(--line); background:var(--panel); }
+  ol.list li:first-child { border-top:0; }
+  ol.list li.now { background:#78350f44; }
+  ol.list li .play { flex:none; width:32px; height:32px; border-radius:50%; border:1px solid var(--line); background:var(--bg); cursor:pointer; font-size:12px; }
+  .t { flex:1; min-width:0; }
+  .t b { font-weight:600; display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .t span, .len { color:var(--dim); font-size:12px; }
+  .len { font-variant-numeric: tabular-nums; }
+  .side { border:1px solid var(--line); border-radius:10px; background:var(--panel2); padding:10px 12px; }
+  .side h3 { margin:0 0 6px; font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--dim); }
+  .side ol { margin:0; padding-left:20px; font-size:14px; }
+  .side li { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; color:var(--muted); }
+  details { margin:32px 0 48px; }
+  summary { cursor:pointer; font-family:Georgia, serif; color:var(--gold); font-size:21px; }
+  .credits { columns: 2 320px; color:var(--muted); font-size:13px; margin-top:10px; }
+  .credits div { break-inside:avoid; margin-bottom:4px; }
+  #err { color:#fca5a5; }
+  .sr { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>🎵 DnDocs Jukebox</h1>
+    <p>Background music for your table. Pick an environment and it keeps playing fitting tracks, shuffled, with smooth crossfades.</p>
+    <p class="stats" id="stats"></p>
+  </header>
+  <p id="err" role="alert"></p>
+
+  <section class="player paused" id="player" aria-label="Player">
+    <div class="np">
+      <div class="emoji" id="npEmoji" aria-hidden="true">🎵</div>
+      <div class="info">
+        <div class="env" id="npEnv">Nothing playing</div>
+        <div class="title" id="npTitle">Pick an environment below</div>
+        <div class="credit" id="npCredit"></div>
+      </div>
+    </div>
+    <div class="bar"><span id="tCur">0:00</span><div class="track"><div class="fill" id="fill"></div></div><span id="tDur">0:00</span></div>
+    <div class="controls">
+      <button class="btn primary" id="bPlay" disabled><span id="playIcon">▶</span> <span id="playLabel">Play</span></button>
+      <button class="btn" id="bNext" disabled title="Next track (N)">⏭ Next</button>
+      <button class="btn" id="bStop" disabled>⏹ Stop</button>
+      <div class="seg" role="group" aria-label="Fade when changing">
+        <button data-fade="800">Quick</button><button data-fade="3000">Smooth</button><button data-fade="7000">Slow</button>
+      </div>
+      <div class="vol">
+        <button class="btn icon" id="bMute" aria-label="Mute">🔊</button>
+        <input type="range" id="vol" min="0" max="1" step="0.01" aria-label="Volume">
+      </div>
+    </div>
+  </section>
+
+  <h2>Environments</h2>
+  <div class="grid" id="envs"></div>
+
+  <h2 id="detailTitle"></h2>
+  <div class="detail">
+    <div>
+      <p class="desc" id="desc"></p>
+      <ol class="list" id="list"></ol>
+    </div>
+    <aside class="side" id="side" hidden>
+      <h3>Up next</h3>
+      <ol id="upnext"></ol>
+      <p class="hint">Space: pause · N: next track</p>
+    </aside>
+  </div>
+
+  <details>
+    <summary>Credits</summary>
+    <p class="desc" style="margin-top:10px">Every track is used under its licence. Most of the music is by Kevin MacLeod
+      (<a href="https://incompetech.com">incompetech.com</a>), licensed under
+      <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons: By Attribution 4.0</a>.
+      Also used by <a href="https://github.com/JustusHellman/DnDocs">DnDocs</a>, where the DM's music plays for the whole group in sync.</p>
+    <div class="credits" id="credits"></div>
+  </details>
+</div>
+
+<script>
+(async () => {
+  const $ = (id) => document.getElementById(id);
+  const BLEND = 4; // seconds two tracks overlap
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem('jukebox:' + k); return v === null ? d : JSON.parse(v); } catch { return d; } },
+    set(k, v) { try { localStorage.setItem('jukebox:' + k, JSON.stringify(v)); } catch { /* private mode */ } },
+  };
+
+  let cat;
+  try {
+    cat = await (await fetch('catalog.json', { cache: 'no-cache' })).json();
+  } catch {
+    $('err').textContent = 'The music library has not been built yet.';
+    return;
+  }
+  const tracks = cat.tracks;
+  const envs = cat.environments.filter((e) => e.tracks.length);
+  const fmt = (s) => { s = Math.max(0, Math.round(s || 0)); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`; };
+  const credit = (t) => `“${t.title}” by ${t.artist === 'Kevin MacLeod' ? 'Kevin MacLeod (incompetech.com)' : t.artist}${t.license ? ' · ' + t.license : ''}`;
+  const ids = Object.keys(tracks);
+  $('stats').textContent = `${envs.length} environments · ${ids.length} tracks · ${Math.round(ids.reduce((a, id) => a + tracks[id].duration, 0) / 3600)} hours of music`;
+
+  // ---------------------------------------------------------------- audio
+  let ctx = null, master = null;
+  let volume = store.get('volume', 0.7), muted = store.get('muted', false), fadeMs = store.get('fade', 3000);
+  const level = () => (muted ? 0 : volume * volume);
+  function ensureCtx() {
+    if (ctx) return ctx;
+    const C = window.AudioContext || window.webkitAudioContext;
+    if (!C) return null;
+    ctx = new C();
+    master = ctx.createGain();
+    master.gain.value = level();
+    master.connect(ctx.destination);
+    return ctx;
+  }
+  function applyVolume() {
+    if (master) master.gain.setTargetAtTime(level(), ctx.currentTime, 0.05);
+    for (const v of voices) if (!v.gain) v.el.volume = Math.min(1, v.lvl * level());
+    $('vol').value = muted ? 0 : volume;
+    $('bMute').textContent = muted || volume === 0 ? '🔇' : volume < 0.5 ? '🔉' : '🔊';
+    $('bMute').setAttribute('aria-label', muted ? 'Unmute' : 'Mute');
+  }
+
+  const voices = [];
+  function makeVoice(id) {
+    const el = new Audio();
+    el.crossOrigin = 'anonymous';
+    el.preload = 'auto';
+    const v = { id, el, gain: null, lvl: 0, timer: null, dying: false, advanced: false };
+    const c = ensureCtx();
+    if (c) {
+      try {
+        const src = c.createMediaElementSource(el);
+        v.gain = c.createGain();
+        v.gain.gain.value = 0;
+        src.connect(v.gain).connect(master);
+      } catch { v.gain = null; }
+    }
+    if (!v.gain) el.volume = 0;
+    el.addEventListener('timeupdate', () => {
+      const d = Number.isFinite(el.duration) ? el.duration : tracks[id].duration;
+      if (!v.dying && !v.advanced && d && d - el.currentTime <= BLEND) { v.advanced = true; advance(BLEND * 1000); }
+    });
+    el.addEventListener('ended', () => { if (!v.dying && !v.advanced) { v.advanced = true; advance(500); } kill(v); });
+    el.src = tracks[id].file;
+    voices.push(v);
+    return v;
+  }
+  function fade(v, to, ms) {
+    const secs = Math.max(0.02, ms / 1000);
+    v.lvl = to;
+    if (v.gain) {
+      const g = v.gain.gain, now = ctx.currentTime;
+      g.cancelScheduledValues(now); g.setValueAtTime(g.value, now); g.linearRampToValueAtTime(to, now + secs);
+      return;
+    }
+    clearInterval(v.timer);
+    const from = v.el.volume / (level() || 1), t0 = performance.now();
+    v.timer = setInterval(() => {
+      const k = Math.min(1, (performance.now() - t0) / (secs * 1000));
+      try { v.el.volume = Math.min(1, (from + (to - from) * k) * level()); } catch {}
+      if (k >= 1) clearInterval(v.timer);
+    }, 50);
+  }
+  function kill(v) {
+    clearInterval(v.timer);
+    v.dying = true;
+    v.el.pause(); v.el.removeAttribute('src'); v.el.load();
+    const i = voices.indexOf(v); if (i >= 0) voices.splice(i, 1);
+  }
+  function retireAll(ms) {
+    for (const v of voices.slice()) if (!v.dying) { v.dying = true; fade(v, 0, ms); setTimeout(() => kill(v), ms + 150); }
+  }
+  const current = () => voices.filter((v) => !v.dying).at(-1) || null;
+
+  // ---------------------------------------------------------------- queue
+  let envId = null, queue = [], pos = 0, playing = false, selected = store.get('env', envs[0]?.id);
+  if (location.hash && envs.some((e) => e.id === location.hash.slice(1))) selected = location.hash.slice(1);
+  const recent = [];
+  const env = (id) => envs.find((e) => e.id === id);
+
+  function shuffled(list, avoidFirst) {
+    const a = list.slice();
+    for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+    // Recently heard tracks go to the back; never the same track twice in a row.
+    a.sort((x, y) => recent.includes(x) - recent.includes(y));
+    if (a.length > 1 && a[0] === avoidFirst) [a[0], a[1]] = [a[1], a[0]];
+    return a;
+  }
+  function startTrack(id, ms) {
+    ensureCtx(); if (ctx && ctx.state !== 'running') ctx.resume();
+    retireAll(ms);
+    const v = makeVoice(id);
+    playing = true;
+    v.el.play().catch(() => {});
+    fade(v, 1, ms);
+    recent.unshift(id); recent.splice(12);
+    preloadNext();
+    media();
+    render();
+  }
+  function playEnv(id, first) {
+    const e = env(id); if (!e) return;
+    envId = id; selected = id; store.set('env', id);
+    queue = shuffled(e.tracks, current()?.id);
+    if (first) queue = [first, ...queue.filter((t) => t !== first)];
+    pos = 0;
+    startTrack(queue[0], fadeMs);
+  }
+  function advance(ms) {
+    if (!envId) return;
+    pos++;
+    if (pos >= queue.length) { queue = shuffled(env(envId).tracks, queue.at(-1)); pos = 0; }
+    startTrack(queue[pos], ms);
+  }
+  let pre = null;
+  function preloadNext() {
+    const next = queue[pos + 1];
+    if (!next) return;
+    pre = new Audio(); pre.crossOrigin = 'anonymous'; pre.preload = 'auto'; pre.muted = true; pre.src = tracks[next].file;
+  }
+  function togglePause() {
+    const v = current(); if (!v) return;
+    if (playing) {
+      playing = false; fade(v, 0, fadeMs);
+      setTimeout(() => { if (!playing) v.el.pause(); }, fadeMs + 50);
+    } else {
+      playing = true; if (ctx && ctx.state !== 'running') ctx.resume();
+      v.el.play().catch(() => {}); fade(v, 1, fadeMs);
+    }
+    media(); render();
+  }
+  function stop() { retireAll(fadeMs); envId = null; playing = false; queue = []; media(); render(); }
+
+  function media() {
+    if (!('mediaSession' in navigator)) return;
+    const v = current();
+    try {
+      navigator.mediaSession.metadata = v && envId ? new MediaMetadata({ title: tracks[v.id].title, artist: tracks[v.id].artist, album: env(envId).name }) : null;
+      navigator.mediaSession.playbackState = v ? (playing ? 'playing' : 'paused') : 'none';
+    } catch {}
+  }
+  if ('mediaSession' in navigator) {
+    const h = (a, f) => { try { navigator.mediaSession.setActionHandler(a, f); } catch {} };
+    h('play', () => !playing && togglePause());
+    h('pause', () => playing && togglePause());
+    h('nexttrack', () => advance(fadeMs));
+    h('stop', stop);
+  }
+
+  // ---------------------------------------------------------------- UI
+  function render() {
+    const v = current(), t = v && tracks[v.id], e = envId && env(envId);
+    $('player').classList.toggle('paused', !playing);
+    $('npEmoji').textContent = e ? e.emoji : '🎵';
+    $('npEnv').innerHTML = '';
+    $('npEnv').append(e ? e.name : 'Nothing playing');
+    if (e && playing) $('npEnv').insertAdjacentHTML('beforeend', '<span class="eq" aria-hidden="true"><i></i><i></i><i></i></span>');
+    if (e && !playing) $('npEnv').append(' · paused');
+    $('npTitle').textContent = t ? t.title : 'Pick an environment below';
+    $('npCredit').textContent = t ? credit(t) : '';
+    $('bPlay').disabled = !v; $('bNext').disabled = !e; $('bStop').disabled = !e;
+    $('playIcon').textContent = playing ? '❚❚' : '▶'; $('playLabel').textContent = playing ? 'Pause' : 'Play';
+    document.querySelectorAll('.seg button').forEach((b) => b.setAttribute('aria-pressed', String(Number(b.dataset.fade) === fadeMs)));
+    document.title = t && playing ? `♪ ${t.title} · DnDocs Jukebox` : 'DnDocs Jukebox';
+
+    $('envs').replaceChildren(...envs.map((x) => {
+      const b = document.createElement('button');
+      b.className = 'card' + (x.id === envId ? ' active' : '') + (x.id === selected ? ' selected' : '');
+      b.title = `Play ${x.name}`;
+      const mins = Math.round(x.tracks.reduce((a, id) => a + tracks[id].duration, 0) / 60);
+      b.innerHTML = `<span class="e" aria-hidden="true"></span><span class="name"><b></b><span class="meta"></span></span>`;
+      b.querySelector('.e').textContent = x.emoji;
+      b.querySelector('b').textContent = x.name;
+      b.querySelector('.meta').textContent = `${x.tracks.length} tracks · ${mins} min`;
+      b.onclick = () => playEnv(x.id);
+      return b;
+    }));
+
+    const s = env(selected) || envs[0];
+    if (s) {
+      $('detailTitle').textContent = `${s.emoji} ${s.name}`;
+      $('desc').textContent = s.description;
+      $('list').replaceChildren(...s.tracks.map((id) => {
+        const tr = tracks[id], li = document.createElement('li');
+        if (v && v.id === id && envId) li.className = 'now';
+        li.innerHTML = `<button class="play"></button><div class="t"><b></b><span></span></div><span class="len">${fmt(tr.duration)}</span>`;
+        const btn = li.querySelector('.play');
+        btn.textContent = '▶'; btn.setAttribute('aria-label', `Play ${tr.title} now`);
+        btn.onclick = () => playEnv(s.id, id);
+        li.querySelector('b').textContent = tr.title;
+        li.querySelector('.t span').textContent = [tr.artist, tr.feel].filter(Boolean).join(' · ');
+        return li;
+      }));
+    }
+    const up = envId ? [1, 2, 3, 4, 5].map((k) => queue[pos + k]).filter(Boolean) : [];
+    $('side').hidden = !up.length;
+    $('upnext').replaceChildren(...up.map((id) => { const li = document.createElement('li'); li.textContent = tracks[id].title; return li; }));
+  }
+
+  setInterval(() => {
+    const v = current();
+    const d = v ? (Number.isFinite(v.el.duration) && v.el.duration ? v.el.duration : tracks[v.id].duration) : 0, c = v ? v.el.currentTime : 0;
+    $('tCur').textContent = fmt(c); $('tDur').textContent = fmt(d);
+    $('fill').style.width = d ? `${Math.min(100, (c / d) * 100)}%` : '0';
+  }, 500);
+
+  $('bPlay').onclick = togglePause;
+  $('bNext').onclick = () => advance(fadeMs);
+  $('bStop').onclick = stop;
+  document.querySelectorAll('.seg button').forEach((b) => (b.onclick = () => { fadeMs = Number(b.dataset.fade); store.set('fade', fadeMs); render(); }));
+  $('vol').oninput = (e) => { volume = Number(e.target.value); if (volume > 0) muted = false; store.set('volume', volume); store.set('muted', muted); applyVolume(); };
+  $('bMute').onclick = () => { muted = !muted; store.set('muted', muted); applyVolume(); };
+  // Mouse clicks shouldn't leave buttons focused, so Space means pause rather than "press that button again".
+  document.addEventListener('click', (e) => { const b = e.target.closest?.('button'); if (b && e.detail > 0) b.blur(); });
+  document.addEventListener('keydown', (e) => {
+    if (/^(INPUT|TEXTAREA|SELECT|BUTTON)$/.test(e.target.tagName) && e.key === ' ') return;
+    if (e.key === ' ' && current()) { e.preventDefault(); togglePause(); }
+    if ((e.key === 'n' || e.key === 'N') && envId) advance(fadeMs);
+  });
+
+  applyVolume();
+  render();
+
+  $('credits').replaceChildren(...ids.sort((a, b) => tracks[a].title.localeCompare(tracks[b].title)).map((id) => {
+    const t = tracks[id], d = document.createElement('div');
+    d.textContent = `“${t.title}” ${t.artist === 'Kevin MacLeod' ? 'Kevin MacLeod (incompetech.com)' : t.artist} · `;
+    const a = document.createElement('a'); a.textContent = t.license || 'licence'; if (t.licenseUrl) a.href = t.licenseUrl;
+    d.append(a);
+    return d;
+  }));
+})();
+</script>
+</body>
+</html>

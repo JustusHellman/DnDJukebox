@@ -1,0 +1,4 @@
+{
+  "$comment": "Your own tracks. Put the audio file in custom/ (or give a direct download url), then use the id in environments.json. Example (remove the leading underscore from _tracks to use it): { \"id\": \"dragon-lair\", \"title\": \"Dragon's Lair\", \"artist\": \"Someone\", \"license\": \"CC BY 4.0\", \"licenseUrl\": \"https://creativecommons.org/licenses/by/4.0/\", \"sourceUrl\": \"https://example.com/where-i-found-it\", \"file\": \"custom/dragon-lair.mp3\" }",
+  "tracks": []
+}
