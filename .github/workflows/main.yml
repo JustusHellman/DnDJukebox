@@ -1,0 +1,64 @@
+name: Build and deploy the music library
+# Downloads and converts the tracks in catalog/ and deploys the site to GitHub Pages
+# (Settings → Pages → Source: GitHub Actions). Tracks that haven't changed are not converted
+# again: they come from the build cache, or else are copied from the live site.
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+    inputs:
+      bitrate:
+        description: "AAC bitrate (changing it re-converts everything)"
+        default: "64k"
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install ffmpeg
+        run: command -v ffmpeg >/dev/null || (sudo apt-get update -q && sudo apt-get install -yq ffmpeg)
+      - name: Set up Pages
+        id: pages
+        uses: actions/configure-pages@v5
+      - name: Restore converted tracks
+        uses: actions/cache/restore@v4
+        with:
+          path: dist
+          key: jukebox-${{ github.run_id }}
+          restore-keys: jukebox-
+      - name: Build
+        run: >
+          node scripts/build.mjs --out dist --jobs 4
+          --bitrate "${{ github.event.inputs.bitrate || '64k' }}"
+          --reuse-from "${{ steps.pages.outputs.base_url }}/"
+      - name: Save converted tracks
+        if: always() && hashFiles('dist/build-manifest.json') != ''
+        uses: actions/cache/save@v4
+        with:
+          path: dist
+          key: jukebox-${{ github.run_id }}
+      - name: Upload site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
