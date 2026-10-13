@@ -1,0 +1,13 @@
+{
+  "$comment": "One-shot sounds the DM can fire over the music (it dips while they play). A track is an incompetech title, an extra-tracks id, or {\"title\": ..., \"end\": seconds} to cut it short (it fades out).",
+  "stingers": [
+    { "id": "initiative", "name": "Roll initiative", "emoji": "⚔️", "tracks": ["Discovery Hit", "Danse Macabre - Big Hit 1", "Danse Macabre - Big Hit 2", "Gustav Sting", "Danse Macabre - Low Strings Finale"] },
+    { "id": "victory", "name": "Victory", "emoji": "🏆", "tracks": ["The Curtain Rises", "Hero Theme", "Light Sting", { "title": "Take a Chance", "end": 20 }] },
+    { "id": "reveal", "name": "Dramatic reveal", "emoji": "😱", "tracks": ["Der Kleber Sting", "Trouble", { "title": "Ominous", "end": 18 }] },
+    { "id": "spooky", "name": "Something's wrong", "emoji": "👻", "tracks": ["Eyes Gone Wrong", "Darkness Speaks", "Flutey Sting", { "title": "Spider's Web", "end": 20 }] },
+    { "id": "magic", "name": "Magic", "emoji": "✨", "tracks": ["Morocco Sting", "Mystery Sting", { "title": "Supernatural", "end": 18 }] },
+    { "id": "death", "name": "A death", "emoji": "💀", "tracks": ["Greta Sting", { "title": "Taps v2", "end": 25 }, { "title": "Funeral March for Brass", "end": 22 }] },
+    { "id": "fanfare", "name": "Fanfare", "emoji": "📯", "tracks": ["First Call", { "title": "The Rule", "end": 20 }, { "title": "Dark Star", "end": 20 }] },
+    { "id": "oops", "name": "Oops", "emoji": "🤡", "tracks": ["Loping Sting", { "title": "Flighty Theme", "end": 15 }, { "title": "Bumbly March", "end": 15 }] }
+  ]
+}

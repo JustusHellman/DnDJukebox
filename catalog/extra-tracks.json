@@ -1,4 +1,713 @@
 {
-  "$comment": "Your own tracks. Put the audio file in custom/ (or give a direct download url), then use the id in environments.json. Example (remove the leading underscore from _tracks to use it): { \"id\": \"dragon-lair\", \"title\": \"Dragon's Lair\", \"artist\": \"Someone\", \"license\": \"CC BY 4.0\", \"licenseUrl\": \"https://creativecommons.org/licenses/by/4.0/\", \"sourceUrl\": \"https://example.com/where-i-found-it\", \"file\": \"custom/dragon-lair.mp3\" }",
-  "tracks": []
+  "$comment": "Tracks that aren't on incompetech: Scott Buckley (scottbuckley.com.au, CC BY 4.0) and your own. Give each an id, credits, and a file (in custom/) or url, then use the id in environments.json.",
+  "tracks": [
+    {
+      "id": "sb-goliath",
+      "title": "Goliath",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/goliath/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2021/08/sb_goliath.mp3"
+    },
+    {
+      "id": "sb-juggernaut",
+      "title": "Juggernaut",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/juggernaut/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2022/07/Juggernaut.mp3"
+    },
+    {
+      "id": "sb-pursuit",
+      "title": "Pursuit",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/pursuit/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2017/02/sb_pursuit.mp3"
+    },
+    {
+      "id": "sb-legionnaire-2022",
+      "title": "Legionnaire (2022 Remaster)",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/legionnaire-2022/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2022/04/sb_legionnaire2022.mp3"
+    },
+    {
+      "id": "sb-song-of-the-forge",
+      "title": "Song Of The Forge",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/song-of-the-forge/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2025/11/SongOfTheForge.mp3"
+    },
+    {
+      "id": "sb-hunted",
+      "title": "Hunted",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/hunted/",
+      "url": "https://www.scottbuckley.com.au/wp-content/audio/sb_hunted.mp3"
+    },
+    {
+      "id": "sb-primal-carnage",
+      "title": "Primal Carnage",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/primal-carnage/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2013/07/sb_primalcarnage.mp3"
+    },
+    {
+      "id": "sb-the-fury",
+      "title": "Monomyth – The Fury",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/the-fury/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2019/07/sb_monomyth_11_thefury.mp3"
+    },
+    {
+      "id": "sb-the-endurance",
+      "title": "Monomyth – The Endurance",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/the-endurance/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2019/07/sb_monomyth_8_theendurance.mp3"
+    },
+    {
+      "id": "sb-the-encounter",
+      "title": "Monomyth – The Encounter",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/the-encounter/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2019/07/sb_monomyth_7_theencounter.mp3"
+    },
+    {
+      "id": "sb-soldier-of-fortune",
+      "title": "Soldier of Fortune",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/soldier-of-fortune/",
+      "url": "https://www.scottbuckley.com.au/wp-content/audio/sb_soldieroffortune.mp3"
+    },
+    {
+      "id": "sb-terminus",
+      "title": "Terminus",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/terminus/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2021/05/sb_terminus.mp3",
+      "instruments": "Synths, Orchestra, Percussion"
+    },
+    {
+      "id": "sb-simulacra",
+      "title": "Simulacra",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/simulacra/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2025/03/Simulacra.mp3",
+      "instruments": "Synths, Percussion, Strings"
+    },
+    {
+      "id": "sb-fate-and-fortune",
+      "title": "Fate and Fortune",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/fate-and-fortune/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2020/03/sb_fateandfortune.mp3"
+    },
+    {
+      "id": "sb-crusader",
+      "title": "Crusader",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/crusader/",
+      "url": "https://www.scottbuckley.com.au/wp-content/audio/sb_crusader.mp3"
+    },
+    {
+      "id": "sb-vanguard",
+      "title": "Vanguard",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/vanguard/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2023/07/Vanguard.mp3"
+    },
+    {
+      "id": "sb-march-of-midnight",
+      "title": "March of Midnight",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/march-of-midnight/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2019/10/sb_marchofmidnight.mp3"
+    },
+    {
+      "id": "sb-hour-of-the-witch",
+      "title": "Hour Of The Witch",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/hour-of-the-witch/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2022/10/HourOfTheWitch.mp3"
+    },
+    {
+      "id": "sb-the-summoning",
+      "title": "The Summoning",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/the-summoning/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2020/10/sb_thesummoning.mp3"
+    },
+    {
+      "id": "sb-eyes-in-the-void",
+      "title": "Eyes In The Void",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/eyes-in-the-void/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2025/06/EyesInTheVoid.mp3"
+    },
+    {
+      "id": "sb-emergent",
+      "title": "Emergent",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/emergent/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2019/11/sb_emergent.mp3",
+      "instruments": "Synths, Strings"
+    },
+    {
+      "id": "sb-oblivion-overture",
+      "title": "Oblivion Overture",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/oblivion-overture/",
+      "url": "https://www.scottbuckley.com.au/wp-content/audio/sb_overture.mp3"
+    },
+    {
+      "id": "sb-sentinel",
+      "title": "Sentinel",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/sentinel/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2024/04/Sentinel.mp3"
+    },
+    {
+      "id": "sb-into-the-unknown",
+      "title": "Into The Unknown",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/into-the-unknown/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2022/06/IntoTheUnknown.mp3"
+    },
+    {
+      "id": "sb-into-the-wilds",
+      "title": "Into The Wilds",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/into-the-wilds/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2024/11/IntoTheWilds.mp3"
+    },
+    {
+      "id": "sb-the-great-sea",
+      "title": "The Great Sea",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/the-great-sea/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2024/01/TheGreatSea.mp3"
+    },
+    {
+      "id": "sb-path-through-the-mountains",
+      "title": "Path Through The Mountains",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/path-through-the-mountains/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2022/10/PathThroughTheMountains.mp3"
+    },
+    {
+      "id": "sb-three-sheets-to-the-wind",
+      "title": "Three Sheets to the Wind",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/three-sheets-to-the-wind/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2023/03/ThreeSheetsToTheWind.mp3"
+    },
+    {
+      "id": "sb-honour-among-thieves",
+      "title": "Honour Among Thieves",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/honour-among-thieves/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2025/04/HonourAmongThieves.mp3"
+    },
+    {
+      "id": "sb-the-legend-of-kvothe",
+      "title": "The Legend of Kvothe",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/the-legend-of-kvothe/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2016/09/sb_legendofkvothe.mp3"
+    },
+    {
+      "id": "sb-jade",
+      "title": "Jade",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/jade/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2014/07/sb_jade.mp3"
+    },
+    {
+      "id": "sb-pathfinder",
+      "title": "Pathfinder",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/pathfinder/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2021/04/sb_pathfinder.mp3"
+    },
+    {
+      "id": "sb-age-of-wonder",
+      "title": "Age of Wonder",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/age-of-wonder/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2022/03/AgeOfWonder.mp3"
+    },
+    {
+      "id": "sb-precipice",
+      "title": "Precipice",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/precipice/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2021/01/sb_precipice.mp3"
+    },
+    {
+      "id": "sb-world-of-magic",
+      "title": "World of Magic",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/world-of-magic/",
+      "url": "https://www.scottbuckley.com.au/wp-content/audio/sb_worldofmagic.mp3"
+    },
+    {
+      "id": "sb-ride-the-wind",
+      "title": "Ride The Wind",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/ride-the-wind/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2025/01/RideTheWind.mp3"
+    },
+    {
+      "id": "sb-victor-lux",
+      "title": "Victor Lux",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/victor-lux/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2023/05/VictorLux.mp3"
+    },
+    {
+      "id": "sb-jubilee",
+      "title": "Jubilee",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/jubilee/",
+      "url": "https://www.scottbuckley.com.au/wp-content/audio/sb_jubilee.mp3"
+    },
+    {
+      "id": "sb-call-to-adventure",
+      "title": "Call To Adventure",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/call-to-adventure/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2023/01/CallToAdventure.mp3"
+    },
+    {
+      "id": "sb-hyperion",
+      "title": "Hyperion",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/hyperion/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2024/06/Hyperion.mp3"
+    },
+    {
+      "id": "sb-echoes-of-home",
+      "title": "Echoes Of Home",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/echoes-of-home/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2025/05/EchoesOfHome.mp3"
+    },
+    {
+      "id": "sb-memories-of-stone",
+      "title": "Memories Of Stone",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/memories-of-stone/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2026/02/MemoriesOfStone.mp3"
+    },
+    {
+      "id": "sb-wanderlust",
+      "title": "Wanderlust",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/wanderlust/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2020/08/sb_wanderlust.mp3"
+    },
+    {
+      "id": "sb-home-was-you",
+      "title": "Home Was You",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/home-was-you/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2026/07/HomeWasYou.mp3"
+    },
+    {
+      "id": "sb-midvinter",
+      "title": "Midvinter",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/midvinter/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2021/12/Midvinter.mp3"
+    },
+    {
+      "id": "sb-first-snow",
+      "title": "First Snow",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/first-snow/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2022/12/FirstSnow.mp3"
+    },
+    {
+      "id": "sb-snowfall",
+      "title": "Snowfall",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/snowfall/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2018/12/sb_snowfall.mp3"
+    },
+    {
+      "id": "sb-eidolon",
+      "title": "Eidolon",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/eidolon/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2016/01/sb_eidolon.mp3"
+    },
+    {
+      "id": "sb-an-unexpected-party",
+      "title": "An Unexpected Party",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/an-unexpected-party/",
+      "url": "https://www.scottbuckley.com.au/wp-content/audio/sb_anunexpectedparty.mp3"
+    },
+    {
+      "id": "sb-concerning-hobbits",
+      "title": "Concerning Hobbits",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/concerning-hobbits/",
+      "url": "https://www.scottbuckley.com.au/wp-content/audio/sb_concerninghobbits.mp3"
+    },
+    {
+      "id": "sb-winter-waltz",
+      "title": "Winter Waltz",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/winter-waltz/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2024/11/WinterWaltz.mp3"
+    },
+    {
+      "id": "sb-invocation",
+      "title": "Invocation",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/invocation/",
+      "url": "https://www.scottbuckley.com.au/wp-content/audio/sb_invocation.mp3"
+    },
+    {
+      "id": "sb-sanctum",
+      "title": "Sanctum",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/sanctum/",
+      "url": "https://www.scottbuckley.com.au/wp-content/audio/sb_sanctum.mp3"
+    },
+    {
+      "id": "sb-hymn-to-the-dawn",
+      "title": "Hymn to the Dawn",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/hymn-to-the-dawn/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2022/11/HymnToTheDawn.mp3"
+    },
+    {
+      "id": "sb-permafrost",
+      "title": "Permafrost",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/permafrost/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2022/08/Permafrost.mp3"
+    },
+    {
+      "id": "sb-borealis",
+      "title": "Borealis",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/borealis/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2019/09/sb_borealis.mp3"
+    },
+    {
+      "id": "sb-balefire",
+      "title": "Balefire",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/balefire/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2023/06/Balefire.mp3"
+    },
+    {
+      "id": "sb-a-dragons-lullaby-2023",
+      "title": "A Dragon's Lullaby (2023 Remaster)",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/a-dragons-lullaby-2023/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2023/02/ADragonsLullaby2023.mp3"
+    },
+    {
+      "id": "sb-the-old-ones",
+      "title": "The Old Ones",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/the-old-ones/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2018/10/sb_theoldones.mp3"
+    },
+    {
+      "id": "sb-incantation",
+      "title": "Incantation",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/incantation/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2024/09/Incantation.mp3"
+    },
+    {
+      "id": "sb-maleficus",
+      "title": "Maleficus",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/maleficus/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2021/10/sb_maleficus.mp3"
+    },
+    {
+      "id": "sb-the-black-waltz",
+      "title": "The Black Waltz",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/the-black-waltz/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2018/10/sb_theblackwaltz.mp3"
+    },
+    {
+      "id": "sb-descent",
+      "title": "Descent",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/descent/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2018/04/descent.mp3"
+    },
+    {
+      "id": "sb-shadows-and-dust",
+      "title": "Shadows and Dust",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/shadows-and-dust/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2023/11/ShadowsAndDust.mp3",
+      "instruments": "Synths, Piano"
+    },
+    {
+      "id": "sb-decoherence",
+      "title": "Decoherence",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/decoherence/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2022/03/sb_decoherence.mp3",
+      "instruments": "Synths, Strings"
+    },
+    {
+      "id": "sb-fading",
+      "title": "Fading",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/fading/",
+      "url": "https://www.scottbuckley.com.au/wp-content/audio/sb_fading.mp3"
+    },
+    {
+      "id": "sb-desperation",
+      "title": "Desperation",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/desperation/",
+      "url": "https://www.scottbuckley.com.au/wp-content/audio/iha/sb_iha_desperation.mp3"
+    },
+    {
+      "id": "sb-the-illusionist",
+      "title": "The Illusionist",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/the-illusionist/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2019/07/sb_theillusionist.mp3"
+    },
+    {
+      "id": "sb-special-ops",
+      "title": "Special Ops",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/special-ops/",
+      "url": "https://www.scottbuckley.com.au/wp-content/audio/iha/sb_iha_specialops.mp3"
+    },
+    {
+      "id": "sb-mr-lonogan",
+      "title": "Mr Lonogan",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/mr-lonogan/",
+      "url": "https://www.scottbuckley.com.au/wp-content/audio/iha/sb_iha_mrlonogan.mp3"
+    },
+    {
+      "id": "sb-high-games",
+      "title": "High Games",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/high-games/",
+      "url": "https://www.scottbuckley.com.au/wp-content/audio/iha/sb_iha_highgames.mp3"
+    },
+    {
+      "id": "sb-quirky-lane",
+      "title": "Quirky Lane",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/quirky-lane/",
+      "url": "https://www.scottbuckley.com.au/wp-content/audio/iha/sb_iha_quirkylane.mp3"
+    },
+    {
+      "id": "sb-annas-theme",
+      "title": "Anna's Theme",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/annas-theme/",
+      "url": "https://www.scottbuckley.com.au/wp-content/audio/sb_annastheme.mp3"
+    },
+    {
+      "id": "sb-what-we-dont-say",
+      "title": "What We Don't Say",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/what-we-dont-say/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2021/09/sb_whatwedontsay.mp3"
+    },
+    {
+      "id": "sb-absolution",
+      "title": "Absolution",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/absolution/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2020/02/sb_absolution.mp3"
+    },
+    {
+      "id": "sb-the-long-dark",
+      "title": "The Long Dark",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/the-long-dark/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2023/01/TheLongDark.mp3"
+    },
+    {
+      "id": "sb-i-walk-with-ghosts",
+      "title": "I Walk With Ghosts",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/i-walk-with-ghosts/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2021/04/sb_iwalkwithghosts.mp3"
+    },
+    {
+      "id": "sb-celestial",
+      "title": "Celestial",
+      "artist": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://www.scottbuckley.com.au/library/celestial/",
+      "url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2021/06/sb_celestial.mp3",
+      "instruments": "Synths, Piano"
+    }
+  ]
 }

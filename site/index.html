@@ -10,23 +10,30 @@
   :root {
     color-scheme: dark;
     --bg:#1c1917; --panel:#292524; --panel2:#231f1d; --line:#44403c; --text:#e7e5e4; --muted:#a8a29e; --dim:#78716c;
-    --accent:#f59e0b; --accent-soft:#78350f55; --gold:#fde68a;
+    --accent:#f59e0b; --accent-soft:#78350f55; --gold:#fde68a; --red:#f87171; --green:#86efac;
   }
   * { box-sizing: border-box; }
   html { -webkit-text-size-adjust: 100%; }
   body { margin:0; background:var(--bg); color:var(--text); font:15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
   .wrap { max-width:1040px; margin:auto; padding:0 16px; }
-  header { padding:28px 0 6px; }
+  header { padding:24px 0 4px; display:flex; flex-wrap:wrap; align-items:end; gap:8px 16px; }
+  header .t { flex:1; min-width:260px; }
   h1 { font-family: Georgia, "Times New Roman", serif; font-size:30px; margin:0 0 2px; color:var(--gold); }
   header p { margin:0; color:var(--muted); }
   .stats { font-size:13px; color:var(--dim); margin-top:4px; }
-  h2 { font-family: Georgia, serif; color:var(--gold); margin:32px 0 10px; font-size:21px; }
+  nav.tabs { display:flex; gap:4px; }
+  nav.tabs button { border:1px solid var(--line); background:var(--panel2); border-radius:8px; padding:6px 12px; cursor:pointer; color:var(--muted); font-weight:600; }
+  nav.tabs button[aria-selected="true"] { color:var(--gold); border-color:var(--accent); }
+  h2 { font-family: Georgia, serif; color:var(--gold); margin:28px 0 10px; font-size:21px; }
+  h3.group { font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--dim); margin:18px 0 8px; }
   button { font:inherit; color:inherit; }
   a { color:#fbbf24; }
+  [hidden] { display:none !important; }
 
   /* Player */
-  .player { position:relative; z-index:5; margin:18px 0 0; padding:14px 16px; background:color-mix(in oklab, var(--panel) 94%, transparent);
-    backdrop-filter: blur(8px); border:1px solid var(--line); border-radius:14px; box-shadow:0 10px 30px -12px #000a; }
+  .player { position:relative; margin:16px 0 0; padding:14px 16px; background:color-mix(in oklab, var(--panel) 94%, transparent);
+    backdrop-filter: blur(8px); border:1px solid var(--line); border-radius:14px; box-shadow:0 10px 30px -12px #000a; z-index:5; }
+  @media (min-width: 761px) { .player { position:sticky; top:0; } }
   .np { display:flex; gap:14px; align-items:center; min-width:0; }
   .np .emoji { font-size:38px; line-height:1; flex:none; width:46px; text-align:center; }
   .np .info { min-width:0; flex:1; }
@@ -42,9 +49,13 @@
   .btn:hover:not(:disabled) { border-color:#78716c; }
   .btn:disabled { opacity:.45; cursor:default; }
   .btn.primary { background:var(--accent); color:#1c1917; border-color:var(--accent); }
+  .btn.small { min-height:32px; padding:4px 10px; font-size:13px; }
   .seg { display:inline-flex; border:1px solid var(--line); border-radius:8px; overflow:hidden; }
   .seg button { border:0; background:transparent; padding:6px 10px; cursor:pointer; font-size:13px; color:var(--muted); }
   .seg button[aria-pressed="true"] { background:#44403c; color:var(--text); }
+  .seg button:disabled { opacity:.35; cursor:default; }
+  .seg.levels button[aria-pressed="true"][data-level="tense"] { background:#854d0e; }
+  .seg.levels button[aria-pressed="true"][data-level="danger"] { background:#7f1d1d; }
   .vol { display:flex; align-items:center; gap:6px; margin-left:auto; min-width:170px; flex:1; max-width:260px; }
   .vol input { flex:1; accent-color:var(--accent); min-width:0; }
   .icon { width:38px; height:38px; justify-content:center; padding:0; }
@@ -53,6 +64,8 @@
   .eq i:nth-child(2) { animation-delay:.18s } .eq i:nth-child(3) { animation-delay:.36s }
   @keyframes eq { from { height:25% } to { height:100% } }
   .paused .eq i { animation-play-state:paused; }
+  .stings { display:flex; flex-wrap:wrap; gap:6px; margin-top:12px; padding-top:10px; border-top:1px solid var(--line); }
+  .stings span { font-size:12px; color:var(--dim); align-self:center; margin-right:4px; }
   .hint { font-size:12px; color:var(--dim); margin-top:8px; }
 
   /* Environments */
@@ -63,41 +76,57 @@
   .card.active { border-color:var(--accent); background:var(--accent-soft); }
   .card.selected:not(.active) { border-color:#a8a29e; }
   .card .e { font-size:26px; line-height:1.1; }
+  .card .name { min-width:0; }
   .card b { display:block; font-family:Georgia, serif; font-size:15px; }
   .card .meta { display:block; font-size:12px; color:var(--dim); }
-  .card .name { min-width:0; }
-
   .detail { display:grid; grid-template-columns: 1fr 280px; gap:16px; align-items:start; }
   @media (max-width: 760px) { .detail { grid-template-columns: 1fr; } .vol { max-width:none; } .grid { grid-template-columns:repeat(2, minmax(0, 1fr)); } }
-  @media (min-width: 761px) { .player { position:sticky; top:0; } }
   .desc { color:var(--muted); margin:0 0 10px; }
   ol.list { list-style:none; padding:0; margin:0; border:1px solid var(--line); border-radius:10px; overflow:hidden; }
   ol.list li { display:flex; align-items:center; gap:10px; padding:7px 10px; border-top:1px solid var(--line); background:var(--panel); }
   ol.list li:first-child { border-top:0; }
   ol.list li.now { background:#78350f44; }
+  ol.list li.removed { opacity:.55; background:#450a0a66; }
+  ol.list li.moved { background:#1e3a8a44; }
   ol.list li .play { flex:none; width:32px; height:32px; border-radius:50%; border:1px solid var(--line); background:var(--bg); cursor:pointer; font-size:12px; }
   .t { flex:1; min-width:0; }
   .t b { font-weight:600; display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
   .t span, .len { color:var(--dim); font-size:12px; }
   .len { font-variant-numeric: tabular-nums; }
+  .meter { width:46px; height:6px; border-radius:9px; background:#44403c; overflow:hidden; flex:none; }
+  .meter i { display:block; height:100%; background:linear-gradient(90deg,#65a30d,#f59e0b,#dc2626); }
+  .spark { display:flex; align-items:flex-end; gap:1px; height:16px; width:72px; flex:none; }
+  .spark i { flex:1; background:#a8a29e88; border-radius:1px; min-height:1px; }
   .side { border:1px solid var(--line); border-radius:10px; background:var(--panel2); padding:10px 12px; }
   .side h3 { margin:0 0 6px; font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--dim); }
   .side ol { margin:0; padding-left:20px; font-size:14px; }
   .side li { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; color:var(--muted); }
-  details { margin:32px 0 48px; }
-  summary { cursor:pointer; font-family:Georgia, serif; color:var(--gold); font-size:21px; }
   .credits { columns: 2 320px; color:var(--muted); font-size:13px; margin-top:10px; }
   .credits div { break-inside:avoid; margin-bottom:4px; }
+  .rv-actions { display:flex; gap:4px; flex-wrap:wrap; justify-content:flex-end; }
+  .rv-actions select { background:var(--panel2); color:var(--text); border:1px solid var(--line); border-radius:8px; padding:4px 6px; font-size:13px; max-width:150px; }
+  #rvEnv { background:var(--panel2); color:var(--text); border:1px solid var(--line); border-radius:8px; padding:6px 8px; font-size:14px; min-height:36px; }
+  @media (max-width: 760px) { ol.list li { flex-wrap:wrap; } .rv-actions { width:100%; } .spark { display:none; } }
+  .toolbar { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:12px 0; }
+  .toolbar .grow { flex:1; }
+  textarea.out { width:100%; min-height:110px; background:var(--panel2); color:var(--text); border:1px solid var(--line); border-radius:8px; padding:8px; font:12px/1.4 ui-monospace, monospace; }
   #err { color:#fca5a5; }
-  .sr { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); }
+  footer { margin:40px 0 48px; color:var(--dim); font-size:13px; }
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
-    <h1>🎵 DnDocs Jukebox</h1>
-    <p>Background music for your table. Pick an environment and it keeps playing fitting tracks, shuffled, with smooth crossfades.</p>
-    <p class="stats" id="stats"></p>
+    <div class="t">
+      <h1>🎵 DnDocs Jukebox</h1>
+      <p>Background music for your table. Pick an environment and it keeps playing fitting tracks, shuffled, with smooth crossfades.</p>
+      <p class="stats" id="stats"></p>
+    </div>
+    <nav class="tabs" role="tablist">
+      <button role="tab" data-tab="play" aria-selected="true">Player</button>
+      <button role="tab" data-tab="review" aria-selected="false">Review</button>
+      <button role="tab" data-tab="credits" aria-selected="false">Credits</button>
+    </nav>
   </header>
   <p id="err" role="alert"></p>
 
@@ -115,7 +144,10 @@
       <button class="btn primary" id="bPlay" disabled><span id="playIcon">▶</span> <span id="playLabel">Play</span></button>
       <button class="btn" id="bNext" disabled title="Next track (N)">⏭ Next</button>
       <button class="btn" id="bStop" disabled>⏹ Stop</button>
-      <div class="seg" role="group" aria-label="Fade when changing">
+      <div class="seg levels" role="group" aria-label="Intensity" id="levels">
+        <button data-level="calm">Calm</button><button data-level="tense">Tense</button><button data-level="danger">Danger</button>
+      </div>
+      <div class="seg" role="group" aria-label="Fade when changing" id="fades">
         <button data-fade="800">Quick</button><button data-fade="3000">Smooth</button><button data-fade="7000">Slow</button>
       </div>
       <div class="vol">
@@ -123,42 +155,73 @@
         <input type="range" id="vol" min="0" max="1" step="0.01" aria-label="Volume">
       </div>
     </div>
+    <div class="stings" id="stings"></div>
   </section>
 
-  <h2>Environments</h2>
-  <div class="grid" id="envs"></div>
-
-  <h2 id="detailTitle"></h2>
-  <div class="detail">
-    <div>
-      <p class="desc" id="desc"></p>
-      <ol class="list" id="list"></ol>
+  <!-- Player -->
+  <section data-panel="play">
+    <div id="envGroups"></div>
+    <h2 id="detailTitle"></h2>
+    <div class="detail">
+      <div>
+        <p class="desc" id="desc"></p>
+        <ol class="list" id="list"></ol>
+      </div>
+      <aside class="side" id="side" hidden>
+        <h3>Up next</h3>
+        <ol id="upnext"></ol>
+        <p class="hint">Space: pause · N: next track</p>
+      </aside>
     </div>
-    <aside class="side" id="side" hidden>
-      <h3>Up next</h3>
-      <ol id="upnext"></ol>
-      <p class="hint">Space: pause · N: next track</p>
-    </aside>
-  </div>
+  </section>
 
-  <details>
-    <summary>Credits</summary>
-    <p class="desc" style="margin-top:10px">Every track is used under its licence. Most of the music is by Kevin MacLeod
-      (<a href="https://incompetech.com">incompetech.com</a>), licensed under
-      <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons: By Attribution 4.0</a>.
+  <!-- Review -->
+  <section data-panel="review" hidden>
+    <h2>Review the music</h2>
+    <p class="desc">Listen to a short sample of each track (from where it gets going) and mark what doesn't fit.
+      Your marks are kept in this browser. When you're done, export them and run
+      <code>node scripts/apply-review.mjs review.json</code> in the jukebox repo (or send the file to whoever looks after it).</p>
+    <div class="toolbar">
+      <select id="rvEnv" aria-label="Environment"></select>
+      <div class="seg" role="group" aria-label="Level" id="rvLevel"></div>
+      <span class="grow"></span>
+      <button class="btn small" id="rvAuto">▶ Play samples one after another</button>
+      <button class="btn small" id="rvStop">⏹</button>
+    </div>
+    <ol class="list" id="rvList"></ol>
+    <h2>Your marks</h2>
+    <p class="desc" id="rvCount"></p>
+    <div class="toolbar">
+      <button class="btn small primary" id="rvDownload">Download review.json</button>
+      <button class="btn small" id="rvCopy">Copy</button>
+      <button class="btn small" id="rvClear">Clear all marks</button>
+    </div>
+    <textarea class="out" id="rvOut" readonly aria-label="Review file"></textarea>
+  </section>
+
+  <!-- Credits -->
+  <section data-panel="credits" hidden>
+    <h2>Credits</h2>
+    <p class="desc">Every track is used under its licence. Most of the music is by Kevin MacLeod
+      (<a href="https://incompetech.com">incompetech.com</a>) and Scott Buckley (<a href="https://www.scottbuckley.com.au">scottbuckley.com.au</a>),
+      licensed under <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons: By Attribution 4.0</a>.
       Also used by <a href="https://github.com/JustusHellman/DnDocs">DnDocs</a>, where the DM's music plays for the whole group in sync.</p>
     <div class="credits" id="credits"></div>
-  </details>
+  </section>
+  <footer>Music plays only on this device here. For music the whole group hears in sync, use the jukebox in DnDocs.</footer>
 </div>
 
 <script>
 (async () => {
   const $ = (id) => document.getElementById(id);
   const BLEND = 4; // seconds two tracks overlap
+  const LEVEL_NAMES = { calm: 'Calm', tense: 'Tense', danger: 'Danger' };
+  const GROUP_NAMES = { places: 'Places', action: 'Action', moods: 'Moods' };
   const store = {
     get(k, d) { try { const v = localStorage.getItem('jukebox:' + k); return v === null ? d : JSON.parse(v); } catch { return d; } },
     set(k, v) { try { localStorage.setItem('jukebox:' + k, JSON.stringify(v)); } catch { /* private mode */ } },
   };
+  const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; };
 
   let cat;
   try {
@@ -169,13 +232,18 @@
   }
   const tracks = cat.tracks;
   const envs = cat.environments.filter((e) => e.tracks.length);
+  const stingers = cat.stingers || [];
   const fmt = (s) => { s = Math.max(0, Math.round(s || 0)); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`; };
   const credit = (t) => `“${t.title}” by ${t.artist === 'Kevin MacLeod' ? 'Kevin MacLeod (incompetech.com)' : t.artist}${t.license ? ' · ' + t.license : ''}`;
   const ids = Object.keys(tracks);
   $('stats').textContent = `${envs.length} environments · ${ids.length} tracks · ${Math.round(ids.reduce((a, id) => a + tracks[id].duration, 0) / 3600)} hours of music`;
+  const env = (id) => envs.find((e) => e.id === id);
+  const levelTracks = (e, level) => (level && level !== 'calm' && e.levels?.[level]?.length ? e.levels[level] : e.tracks);
+  /** Seconds to skip at the start of a track (environments that start "at the hit"). */
+  const startOf = (e, id) => { const t = tracks[id]; return e?.hitStart && t.cue && t.cue < t.duration - 20 ? t.cue : 0; };
 
   // ---------------------------------------------------------------- audio
-  let ctx = null, master = null;
+  let ctx = null, master = null, musicBus = null;
   let volume = store.get('volume', 0.7), muted = store.get('muted', false), fadeMs = store.get('fade', 3000);
   const level = () => (muted ? 0 : volume * volume);
   function ensureCtx() {
@@ -186,6 +254,8 @@
     master = ctx.createGain();
     master.gain.value = level();
     master.connect(ctx.destination);
+    musicBus = ctx.createGain();
+    musicBus.connect(master);
     return ctx;
   }
   function applyVolume() {
@@ -197,7 +267,7 @@
   }
 
   const voices = [];
-  function makeVoice(id) {
+  function makeVoice(id, offset, bus) {
     const el = new Audio();
     el.crossOrigin = 'anonymous';
     el.preload = 'auto';
@@ -208,17 +278,12 @@
         const src = c.createMediaElementSource(el);
         v.gain = c.createGain();
         v.gain.gain.value = 0;
-        src.connect(v.gain).connect(master);
+        src.connect(v.gain).connect(bus || musicBus);
       } catch { v.gain = null; }
     }
     if (!v.gain) el.volume = 0;
-    el.addEventListener('timeupdate', () => {
-      const d = Number.isFinite(el.duration) ? el.duration : tracks[id].duration;
-      if (!v.dying && !v.advanced && d && d - el.currentTime <= BLEND) { v.advanced = true; advance(BLEND * 1000); }
-    });
-    el.addEventListener('ended', () => { if (!v.dying && !v.advanced) { v.advanced = true; advance(500); } kill(v); });
+    if (offset > 0.3) el.addEventListener('loadedmetadata', () => { el.currentTime = offset; }, { once: true });
     el.src = tracks[id].file;
-    voices.push(v);
     return v;
   }
   function fade(v, to, ms) {
@@ -247,25 +312,30 @@
     for (const v of voices.slice()) if (!v.dying) { v.dying = true; fade(v, 0, ms); setTimeout(() => kill(v), ms + 150); }
   }
   const current = () => voices.filter((v) => !v.dying).at(-1) || null;
+  function resumeCtx() { ensureCtx(); if (ctx && ctx.state !== 'running') ctx.resume(); }
 
-  // ---------------------------------------------------------------- queue
-  let envId = null, queue = [], pos = 0, playing = false, selected = store.get('env', envs[0]?.id);
+  // ---------------------------------------------------------------- music queue
+  let envId = null, lvl = 'calm', queue = [], pos = 0, playing = false, selected = store.get('env', envs[0]?.id);
   if (location.hash && envs.some((e) => e.id === location.hash.slice(1))) selected = location.hash.slice(1);
   const recent = [];
-  const env = (id) => envs.find((e) => e.id === id);
 
   function shuffled(list, avoidFirst) {
     const a = list.slice();
     for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
-    // Recently heard tracks go to the back; never the same track twice in a row.
     a.sort((x, y) => recent.includes(x) - recent.includes(y));
     if (a.length > 1 && a[0] === avoidFirst) [a[0], a[1]] = [a[1], a[0]];
     return a;
   }
   function startTrack(id, ms) {
-    ensureCtx(); if (ctx && ctx.state !== 'running') ctx.resume();
+    resumeCtx();
     retireAll(ms);
-    const v = makeVoice(id);
+    const v = makeVoice(id, startOf(env(envId), id));
+    v.el.addEventListener('timeupdate', () => {
+      const d = Number.isFinite(v.el.duration) ? v.el.duration : tracks[id].duration;
+      if (!v.dying && !v.advanced && d && d - v.el.currentTime <= BLEND) { v.advanced = true; advance(BLEND * 1000); }
+    });
+    v.el.addEventListener('ended', () => { if (!v.dying && !v.advanced) { v.advanced = true; advance(500); } kill(v); });
+    voices.push(v);
     playing = true;
     v.el.play().catch(() => {});
     fade(v, 1, ms);
@@ -274,10 +344,12 @@
     media();
     render();
   }
-  function playEnv(id, first) {
+  function playEnv(id, first, newLevel) {
     const e = env(id); if (!e) return;
+    if (id !== envId) lvl = 'calm';
+    if (newLevel) lvl = newLevel;
     envId = id; selected = id; store.set('env', id);
-    queue = shuffled(e.tracks, current()?.id);
+    queue = shuffled(levelTracks(e, lvl), current()?.id);
     if (first) queue = [first, ...queue.filter((t) => t !== first)];
     pos = 0;
     startTrack(queue[0], fadeMs);
@@ -285,7 +357,7 @@
   function advance(ms) {
     if (!envId) return;
     pos++;
-    if (pos >= queue.length) { queue = shuffled(env(envId).tracks, queue.at(-1)); pos = 0; }
+    if (pos >= queue.length) { queue = shuffled(levelTracks(env(envId), lvl), queue.at(-1)); pos = 0; }
     startTrack(queue[pos], ms);
   }
   let pre = null;
@@ -300,12 +372,24 @@
       playing = false; fade(v, 0, fadeMs);
       setTimeout(() => { if (!playing) v.el.pause(); }, fadeMs + 50);
     } else {
-      playing = true; if (ctx && ctx.state !== 'running') ctx.resume();
+      playing = true; resumeCtx();
       v.el.play().catch(() => {}); fade(v, 1, fadeMs);
     }
     media(); render();
   }
   function stop() { retireAll(fadeMs); envId = null; playing = false; queue = []; media(); render(); }
+
+  // ---------------------------------------------------------------- stingers
+  function sting(s) {
+    resumeCtx();
+    const id = s.tracks[Math.floor(Math.random() * s.tracks.length)];
+    const v = makeVoice(id, 0, master);
+    v.gain ? (v.gain.gain.value = 1) : (v.el.volume = level());
+    if (musicBus) { const now = ctx.currentTime; musicBus.gain.cancelScheduledValues(now); musicBus.gain.setValueAtTime(musicBus.gain.value, now); musicBus.gain.linearRampToValueAtTime(0.3, now + 0.3); }
+    const restore = () => { if (musicBus) { const now = ctx.currentTime; musicBus.gain.cancelScheduledValues(now); musicBus.gain.setValueAtTime(musicBus.gain.value, now); musicBus.gain.linearRampToValueAtTime(1, now + 1.2); } };
+    v.el.addEventListener('ended', () => { restore(); v.el.removeAttribute('src'); }, { once: true });
+    v.el.play().catch(restore);
+  }
 
   function media() {
     if (!('mediaSession' in navigator)) return;
@@ -323,55 +407,86 @@
     h('stop', stop);
   }
 
-  // ---------------------------------------------------------------- UI
+  // ---------------------------------------------------------------- player UI
+  function trackRow(id, onPlay, extra) {
+    const tr = tracks[id], li = el('li');
+    const btn = el('button', 'play', '▶'); btn.setAttribute('aria-label', `Play ${tr.title}`); btn.onclick = onPlay;
+    const t = el('div', 't'); t.append(el('b', '', tr.title), el('span', '', [tr.artist, tr.feel].filter(Boolean).join(' · ')));
+    li.append(btn, t);
+    if (tr.intensity !== undefined) {
+      const m = el('span', 'meter'); m.title = `Intensity ${tr.intensity}/100`; const i = el('i'); i.style.width = tr.intensity + '%'; m.append(i); li.append(m);
+    }
+    li.append(el('span', 'len', fmt(tr.duration)));
+    if (extra) li.append(extra);
+    return li;
+  }
   function render() {
     const v = current(), t = v && tracks[v.id], e = envId && env(envId);
     $('player').classList.toggle('paused', !playing);
     $('npEmoji').textContent = e ? e.emoji : '🎵';
-    $('npEnv').innerHTML = '';
-    $('npEnv').append(e ? e.name : 'Nothing playing');
+    $('npEnv').replaceChildren(e ? `${e.name}${lvl !== 'calm' ? ' · ' + LEVEL_NAMES[lvl] : ''}` : 'Nothing playing');
     if (e && playing) $('npEnv').insertAdjacentHTML('beforeend', '<span class="eq" aria-hidden="true"><i></i><i></i><i></i></span>');
     if (e && !playing) $('npEnv').append(' · paused');
     $('npTitle').textContent = t ? t.title : 'Pick an environment below';
     $('npCredit').textContent = t ? credit(t) : '';
     $('bPlay').disabled = !v; $('bNext').disabled = !e; $('bStop').disabled = !e;
     $('playIcon').textContent = playing ? '❚❚' : '▶'; $('playLabel').textContent = playing ? 'Pause' : 'Play';
-    document.querySelectorAll('.seg button').forEach((b) => b.setAttribute('aria-pressed', String(Number(b.dataset.fade) === fadeMs)));
+    document.querySelectorAll('#fades button').forEach((b) => b.setAttribute('aria-pressed', String(Number(b.dataset.fade) === fadeMs)));
+    const hasLevels = !!(e && e.levels && Object.keys(e.levels).length);
+    $('levels').hidden = !hasLevels;
+    document.querySelectorAll('#levels button').forEach((b) => {
+      const l = b.dataset.level;
+      b.setAttribute('aria-pressed', String(l === lvl));
+      b.disabled = l !== 'calm' && !(e && e.levels && e.levels[l] && e.levels[l].length);
+    });
     document.title = t && playing ? `♪ ${t.title} · DnDocs Jukebox` : 'DnDocs Jukebox';
 
-    $('envs').replaceChildren(...envs.map((x) => {
-      const b = document.createElement('button');
-      b.className = 'card' + (x.id === envId ? ' active' : '') + (x.id === selected ? ' selected' : '');
-      b.title = `Play ${x.name}`;
-      const mins = Math.round(x.tracks.reduce((a, id) => a + tracks[id].duration, 0) / 60);
-      b.innerHTML = `<span class="e" aria-hidden="true"></span><span class="name"><b></b><span class="meta"></span></span>`;
-      b.querySelector('.e').textContent = x.emoji;
-      b.querySelector('b').textContent = x.name;
-      b.querySelector('.meta').textContent = `${x.tracks.length} tracks · ${mins} min`;
-      b.onclick = () => playEnv(x.id);
-      return b;
+    $('envGroups').replaceChildren(...Object.keys(GROUP_NAMES).flatMap((g) => {
+      const list = envs.filter((x) => (x.group || 'places') === g);
+      if (!list.length) return [];
+      const grid = el('div', 'grid');
+      grid.append(...list.map((x) => {
+        const b = el('button', 'card' + (x.id === envId ? ' active' : '') + (x.id === selected ? ' selected' : ''));
+        b.title = x.description;
+        const all = new Set([...x.tracks, ...Object.values(x.levels || {}).flat()]);
+        const mins = Math.round([...all].reduce((a, id) => a + tracks[id].duration, 0) / 60);
+        const name = el('span', 'name'); name.append(el('b', '', x.name), el('span', 'meta', `${all.size} tracks · ${mins} min${x.levels ? ' · levels' : ''}`));
+        const em = el('span', 'e', x.emoji); em.setAttribute('aria-hidden', 'true');
+        b.append(em, name);
+        b.onclick = () => playEnv(x.id);
+        return b;
+      }));
+      return [el('h3', 'group', GROUP_NAMES[g]), grid];
     }));
 
     const s = env(selected) || envs[0];
     if (s) {
       $('detailTitle').textContent = `${s.emoji} ${s.name}`;
-      $('desc').textContent = s.description;
-      $('list').replaceChildren(...s.tracks.map((id) => {
-        const tr = tracks[id], li = document.createElement('li');
-        if (v && v.id === id && envId) li.className = 'now';
-        li.innerHTML = `<button class="play"></button><div class="t"><b></b><span></span></div><span class="len">${fmt(tr.duration)}</span>`;
-        const btn = li.querySelector('.play');
-        btn.textContent = '▶'; btn.setAttribute('aria-label', `Play ${tr.title} now`);
-        btn.onclick = () => playEnv(s.id, id);
-        li.querySelector('b').textContent = tr.title;
-        li.querySelector('.t span').textContent = [tr.artist, tr.feel].filter(Boolean).join(' · ');
-        return li;
-      }));
+      $('desc').textContent = s.description + (s.hitStart ? ' Tracks start where they get going.' : '');
+      const rows = [];
+      for (const l of ['calm', 'tense', 'danger']) {
+        const list = l === 'calm' ? s.tracks : s.levels?.[l];
+        if (!list?.length) continue;
+        if (s.levels) { const h = el('li'); h.append(el('b', '', l === 'calm' ? 'Calm (default)' : LEVEL_NAMES[l])); h.style.background = 'var(--panel2)'; rows.push(h); }
+        for (const id of list) {
+          const li = trackRow(id, () => playEnv(s.id, id, l));
+          if (v && v.id === id && envId) li.classList.add('now');
+          rows.push(li);
+        }
+      }
+      $('list').replaceChildren(...rows);
     }
     const up = envId ? [1, 2, 3, 4, 5].map((k) => queue[pos + k]).filter(Boolean) : [];
     $('side').hidden = !up.length;
-    $('upnext').replaceChildren(...up.map((id) => { const li = document.createElement('li'); li.textContent = tracks[id].title; return li; }));
+    $('upnext').replaceChildren(...up.map((id) => el('li', '', tracks[id].title)));
   }
+
+  $('stings').append(el('span', '', 'Stingers:'), ...stingers.map((s) => {
+    const b = el('button', 'btn small', `${s.emoji} ${s.name}`);
+    b.onclick = () => sting(s);
+    return b;
+  }));
+  $('stings').hidden = !stingers.length;
 
   setInterval(() => {
     const v = current();
@@ -383,27 +498,129 @@
   $('bPlay').onclick = togglePause;
   $('bNext').onclick = () => advance(fadeMs);
   $('bStop').onclick = stop;
-  document.querySelectorAll('.seg button').forEach((b) => (b.onclick = () => { fadeMs = Number(b.dataset.fade); store.set('fade', fadeMs); render(); }));
+  document.querySelectorAll('#fades button').forEach((b) => (b.onclick = () => { fadeMs = Number(b.dataset.fade); store.set('fade', fadeMs); render(); }));
+  document.querySelectorAll('#levels button').forEach((b) => (b.onclick = () => { if (envId && b.dataset.level !== lvl) playEnv(envId, null, b.dataset.level); }));
   $('vol').oninput = (e) => { volume = Number(e.target.value); if (volume > 0) muted = false; store.set('volume', volume); store.set('muted', muted); applyVolume(); };
   $('bMute').onclick = () => { muted = !muted; store.set('muted', muted); applyVolume(); };
   // Mouse clicks shouldn't leave buttons focused, so Space means pause rather than "press that button again".
   document.addEventListener('click', (e) => { const b = e.target.closest?.('button'); if (b && e.detail > 0) b.blur(); });
   document.addEventListener('keydown', (e) => {
-    if (/^(INPUT|TEXTAREA|SELECT|BUTTON)$/.test(e.target.tagName) && e.key === ' ') return;
+    if (/^(INPUT|TEXTAREA|SELECT|BUTTON)$/.test(e.target.tagName) && (e.key === ' ' || /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName))) return;
     if (e.key === ' ' && current()) { e.preventDefault(); togglePause(); }
     if ((e.key === 'n' || e.key === 'N') && envId) advance(fadeMs);
   });
 
+  // ---------------------------------------------------------------- tabs
+  document.querySelectorAll('nav.tabs button').forEach((b) => (b.onclick = () => {
+    document.querySelectorAll('nav.tabs button').forEach((x) => x.setAttribute('aria-selected', String(x === b)));
+    document.querySelectorAll('[data-panel]').forEach((p) => (p.hidden = p.dataset.panel !== b.dataset.tab));
+    if (b.dataset.tab === 'review') renderReview();
+  }));
+
+  // ---------------------------------------------------------------- review
+  /** marks[`${env}|${level}|${track}`] = { action: 'remove' } | { action: 'move', to, toLevel } */
+  let marks = store.get('review', {});
+  let rvEnv = envs[0]?.id, rvLevel = 'calm', sample = null, auto = false;
+  const saveMarks = () => { store.set('review', marks); renderOut(); };
+  $('rvEnv').append(...envs.map((e) => { const o = el('option', '', `${e.emoji} ${e.name}`); o.value = e.id; return o; }));
+  $('rvEnv').onchange = (e) => { rvEnv = e.target.value; rvLevel = 'calm'; renderReview(); };
+
+  function stopSample() { if (sample) { const s = sample; sample = null; fade(s, 0, 400); setTimeout(() => kill(s), 500); } }
+  function playSample(id, onEnd) {
+    stopSample();
+    if (playing) togglePause();
+    resumeCtx();
+    const t = tracks[id];
+    const from = t.cue && t.cue < t.duration - 20 ? t.cue : Math.min(t.duration * 0.3, Math.max(0, t.duration - 25));
+    const v = makeVoice(id, from);
+    voices.push(v);
+    sample = v;
+    v.el.play().catch(() => {});
+    fade(v, 1, 300);
+    const timer = setTimeout(() => { if (sample === v) { stopSample(); onEnd?.(); } }, 25000);
+    v.el.addEventListener('ended', () => { clearTimeout(timer); if (sample === v) { sample = null; onEnd?.(); } }, { once: true });
+    renderReview(id);
+  }
+  function renderReview(playingId) {
+    const e = env(rvEnv);
+    $('rvEnv').value = rvEnv;
+    $('rvLevel').replaceChildren(...['calm', 'tense', 'danger'].filter((l) => l === 'calm' || e.levels?.[l]?.length).map((l) => {
+      const b = el('button', '', LEVEL_NAMES[l]); b.setAttribute('aria-pressed', String(l === rvLevel));
+      b.onclick = () => { rvLevel = l; renderReview(); };
+      return b;
+    }));
+    $('rvLevel').hidden = !e.levels;
+    const list = levelTracks(e, rvLevel);
+    const nowId = playingId ?? sample?.id;
+    $('rvList').replaceChildren(...list.map((id) => {
+      const key = `${rvEnv}|${rvLevel}|${id}`, mark = marks[key];
+      const actions = el('div', 'rv-actions');
+      const keep = el('button', 'btn small', mark ? 'Undo' : 'Keep'); keep.disabled = !mark;
+      keep.onclick = () => { delete marks[key]; saveMarks(); renderReview(); };
+      const rm = el('button', 'btn small', '✕ Remove'); rm.disabled = mark?.action === 'remove';
+      rm.onclick = () => { marks[key] = { action: 'remove' }; saveMarks(); renderReview(); };
+      const mv = el('select'); mv.setAttribute('aria-label', 'Move to');
+      mv.append(el('option', '', mark?.action === 'move' ? `→ ${env(mark.to)?.name}${mark.toLevel ? ' (' + LEVEL_NAMES[mark.toLevel] + ')' : ''}` : 'Move to…'));
+      for (const x of envs) for (const l of ['calm', 'tense', 'danger']) {
+        if (l !== 'calm' && !x.levels?.[l]) continue;
+        if (x.id === rvEnv && l === rvLevel) continue;
+        const o = el('option', '', `${x.emoji} ${x.name}${l !== 'calm' ? ' · ' + LEVEL_NAMES[l] : ''}`); o.value = `${x.id}|${l}`; mv.append(o);
+      }
+      mv.onchange = () => { const [to, l] = mv.value.split('|'); marks[key] = { action: 'move', to, toLevel: l === 'calm' ? undefined : l }; saveMarks(); renderReview(); };
+      actions.append(keep, rm, mv);
+      const spark = el('span', 'spark'); spark.title = 'Loudness over time';
+      for (const c of (tracks[id].curve || '').slice(0, 40)) { const i = el('i'); i.style.height = (Number(c) / 9) * 100 + '%'; spark.append(i); }
+      const li = trackRow(id, () => (sample?.id === id ? (stopSample(), renderReview()) : playSample(id)), actions);
+      li.querySelector('.len').before(spark);
+      if (mark?.action === 'remove') li.classList.add('removed');
+      if (mark?.action === 'move') li.classList.add('moved');
+      if (nowId === id) { li.classList.add('now'); li.querySelector('.play').textContent = '❚❚'; }
+      return li;
+    }));
+    renderOut();
+  }
+  function reviewFile() {
+    const changes = Object.entries(marks).map(([key, m]) => {
+      const [e, l, track] = key.split('|');
+      const c = { action: m.action, env: e, track, ...(l !== 'calm' ? { level: l } : {}) };
+      if (m.action === 'move') { c.to = m.to; if (m.toLevel) c.toLevel = m.toLevel; }
+      return c;
+    });
+    return { version: 1, source: 'jukebox review', createdAt: new Date().toISOString(), changes };
+  }
+  function renderOut() {
+    const f = reviewFile();
+    $('rvCount').textContent = f.changes.length ? `${f.changes.length} change(s) marked.` : 'Nothing marked yet.';
+    $('rvOut').value = JSON.stringify(f, null, 2);
+  }
+  $('rvAuto').onclick = () => {
+    auto = true;
+    const list = levelTracks(env(rvEnv), rvLevel);
+    const startAt = Math.max(0, list.indexOf(sample?.id) + 1);
+    const step = (i) => { if (!auto || i >= list.length) { auto = false; renderReview(); return; } playSample(list[i], () => step(i + 1)); };
+    step(startAt);
+  };
+  $('rvStop').onclick = () => { auto = false; stopSample(); renderReview(); };
+  $('rvDownload').onclick = () => {
+    const a = el('a'); a.href = URL.createObjectURL(new Blob([$('rvOut').value], { type: 'application/json' })); a.download = 'review.json'; a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  };
+  $('rvCopy').onclick = () => navigator.clipboard?.writeText($('rvOut').value).then(() => ($('rvCopy').textContent = 'Copied'), () => {});
+  $('rvClear').onclick = () => { if (confirm('Clear all your marks?')) { marks = {}; saveMarks(); renderReview(); } };
+
+  // ---------------------------------------------------------------- credits
+  const seen = new Set();
+  $('credits').replaceChildren(...ids
+    .filter((id) => { const k = tracks[id].title + tracks[id].artist; return !seen.has(k) && seen.add(k); })
+    .sort((a, b) => tracks[a].title.localeCompare(tracks[b].title)).map((id) => {
+      const t = tracks[id], d = el('div', '', `“${t.title}” ${t.artist === 'Kevin MacLeod' ? 'Kevin MacLeod (incompetech.com)' : t.artist} · `);
+      const a = el('a', '', t.license || 'licence'); if (t.licenseUrl) a.href = t.licenseUrl;
+      d.append(a);
+      return d;
+    }));
+
   applyVolume();
   render();
-
-  $('credits').replaceChildren(...ids.sort((a, b) => tracks[a].title.localeCompare(tracks[b].title)).map((id) => {
-    const t = tracks[id], d = document.createElement('div');
-    d.textContent = `“${t.title}” ${t.artist === 'Kevin MacLeod' ? 'Kevin MacLeod (incompetech.com)' : t.artist} · `;
-    const a = document.createElement('a'); a.textContent = t.license || 'licence'; if (t.licenseUrl) a.href = t.licenseUrl;
-    d.append(a);
-    return d;
-  }));
 })();
 </script>
 </body>
